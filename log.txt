@@ -1,0 +1,12 @@
+
+Input: hello
+Response: I do not know.
+Type: False
+
+Input: test
+Response: I do not know.
+Type: False
+
+Input: Who are you?
+Response: KBAI student, Fall2017syllabusFAQ.txt
+Type: False
