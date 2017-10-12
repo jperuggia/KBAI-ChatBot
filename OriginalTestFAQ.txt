@@ -101,6 +101,5 @@ When is project 2 due?Week of October 9th
 When is project 3 due?Week of November 6th
 When is the midterm?Week of October 2nd
 When is the final?Week of November 27th
-Who is Ben? KBAI Troll
 Who is the professor for this class?Professor Goel
 Who is professor Goel?The professor for this class
