@@ -1,10 +1,10 @@
 """
 Chatbot class
-This is the entry point and exit point for your chatbot. 
+This is the entry point and exit point for your chatbot.
 Do not change this API. If it it changes your chatbot will
 not be compatible with the autograder.
 
-I highly recommend just calling your code from this file 
+I highly recommend just calling your code from this file
 (put your chatbot code in another file) in case we need to
 change this file during the project.
 """
@@ -21,6 +21,7 @@ import time
 class Chatbot:
 
     def __init__(self,FAQPathFilename):
+
         # FAQPathFilename is string containing
         # path and filename to text corpus in FAQ format.
         self.FAQPathFilename = FAQPathFilename
@@ -45,7 +46,6 @@ class Chatbot:
                 question, answer = s.split("?")
 
             answer = answer.rstrip()
-            knowledge_base.append(self.generate_q_and_a_frame(question, answer))
             ts_record = {"answer": answer, "question": question}
             training_set.append(ts_record)
 
@@ -165,7 +165,7 @@ class Chatbot:
                 layer_0 = X
                 layer_1 = sigmoid(np.dot(layer_0, synapse_0))
 
-                if (dropout):
+                if dropout:
                     layer_1 *= np.random.binomial([np.ones((len(X), hidden_neurons))], 1 - dropout_percent)[0] * (
                         1.0 / (1 - dropout_percent))
 
@@ -219,18 +219,21 @@ class Chatbot:
                        }
             synapse_file = "synapses.json"
 
+            # dump the results into a file to be read in.
             with open(synapse_file, 'w') as outfile:
                 json.dump(synapse, outfile, indent=4, sort_keys=True)
+
             print("saved synapses to:", synapse_file)
 
-        # print("Time to Train....")
+        print("Time to Train....")
+
+        print (np.asarray(training))
 
         X = np.array(training)
         y = np.array(output)
-
         start_time = time.time()
-
-        # train(X, y, 25, 0.1, 100000, False, 0.2)
+        # this line will call the train method and produce the synapses json file.
+        train(X, y, 25, 0.1, 100000, False, 0.2)
 
         elapsed_time = time.time() - start_time
         print("processing time:", elapsed_time, "seconds")
@@ -255,7 +258,6 @@ class Chatbot:
             return return_results
 
 
-
         classify("Who is professor Goel")
 
         classify("Who is Ben")
@@ -271,11 +273,6 @@ class Chatbot:
         # new frames can be created or existing frames can be changed to solidify the answer.
 
 
-    def generate_q_and_a_frame(self, question, answer):
-        frameObject = {}
-
-        return frameObject
-
     def UserFeedback(self,yesorno):
         #TODO: user calls this with "yes" or "no" feedback when InputOutput returns TRUE
         return
@@ -290,7 +287,7 @@ class Chatbot:
             return False, "KBAI student, " + self.FAQPathFilename
 
         # TODO: Insert calls to your chatbot here
-        #       Your chatbot should return '' if 
+        #       Your chatbot should return '' if
         #       it does not have an answer.
         response = ''
         for qa in self.FAQasList:           # Example code
