@@ -26,6 +26,7 @@ class Chatbot:
         self.FAQPathFilename = FAQPathFilename
         with open(FAQPathFilename,"r", encoding="utf-8") as f: # Example code
             self.FAQasList = f.readlines()                     # Example code
+            f.close()
 
         # TODO: Open FAQ and parse question,answers
         #       into knowledge base.
@@ -236,7 +237,7 @@ class Chatbot:
         print("Got some Gainz")
 
         # probability threshold
-        ERROR_THRESHOLD = 0.1
+        ERROR_THRESHOLD = 0.2
         # load our calculated synapse values
         synapse_file = 'synapses.json'
 
@@ -254,14 +255,14 @@ class Chatbot:
             return return_results
 
 
-        print("Who is professor Goel?")
-        ans = classify("Who is professor Goel")
-        print(ans[0][0])
 
-        print("Who is Ben?")
-        ans = classify("Who is Ben")
-        print(ans[0][0])
+        classify("Who is professor Goel")
 
+        classify("Who is Ben")
+
+        classify("What is the limit of words on an assignment")
+
+        classify("How many projects are in this class")
 
 
         garbage = 1234
