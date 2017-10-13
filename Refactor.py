@@ -1,3 +1,8 @@
+
+"""
+Neural network testing doesnt work when training is off, cant figure out why 
+"""
+
 """
 Chatbot class
 This is the entry point and exit point for your chatbot.
