@@ -14,3 +14,77 @@ Type: False
 Input: 
 Response: I do not know.
 Type: False
+
+Input: Who is the professor
+Response: I do not know.
+Type: False
+
+Input: Who is professor Goel
+Response: The professor for this class
+Is the response correct (yes/no)?
+Type: True
+
+Input: Who us the professor for this class
+Response: I do not know.
+Type: False
+
+Input: Who is the professor for this class
+Response: I do not know.
+Type: False
+
+Input: Who is the professor for this class
+Response: I do not know.
+Type: False
+
+Input: Who is the professor for this class
+Response: I do not know.
+Type: False
+
+Input: Who is the professor
+Response: I do not know.
+Type: False
+
+Input: Who is the professor
+Response: I do not know.
+Type: False
+
+Input: Who is the professor
+Response: Professor Goel
+
+Is the response correct (yes/no)?
+Type: True
+
+Input: Who is Goel
+Response: The professor for this class
+Is the response correct (yes/no)?
+Type: True
+
+Input: What is FAQ version
+Response: Version 20171009
+
+Is the response correct (yes/no)?
+Type: True
+
+Input: The version of this FAQ is what?
+Response: Version 20171009
+
+Is the response correct (yes/no)?
+Type: True
+
+Input: Which Faq are you using?
+Response: Version 20171009
+
+Is the response correct (yes/no)?
+Type: True
+
+Input: What is the FAQ version
+Response: Version 20171009
+
+Is the response correct (yes/no)?
+Type: True
+
+Input: Who teaches this class
+Response: Professor Goel
+
+Is the response correct (yes/no)?
+Type: True

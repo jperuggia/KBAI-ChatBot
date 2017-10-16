@@ -5,7 +5,7 @@ Please use this file to test your Chatbot class.
 Usage: chatbotTester.py -f faq -l <log filename>
 """
 import sys, getopt, os
-import Refactor as Chatbot
+import Chatbot
 
 
 def ChatbotTester(FAQFilename,LogFilename):

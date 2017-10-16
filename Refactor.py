@@ -54,7 +54,7 @@ class Chatbot:
     def __init__(self,FAQPathFilename):
 
         TRAIN_NETWORK = True
-        TRAINING_FILE_NAME = "synapses.json"
+        TRAINING_FILE_NAME = "synapses_2.json"
 
         # FAQPathFilename is string containing
         # path and filename to text corpus in FAQ format.
@@ -89,7 +89,8 @@ class Chatbot:
         self.create_training_data()
         X = np.array(self.training)
         y = np.array(self.output)
-
+        #X = np.array_repr(X).replace('\n', '')
+        #y = np.array_repr(y).replace('\n', '')
         if TRAIN_NETWORK:
             self.train_network(X, y)
             # test the classify right after training.
@@ -101,7 +102,8 @@ class Chatbot:
             loaded_data = json.load(data_file)
         self.synapse_file_0 = np.asarray(loaded_data['synapse0'])
         self.synapse_file_1 = np.asarray(loaded_data['synapse1'])
-
+        self.synapse_file_0 = np.array_repr(self.synapse_file_0).replace('\n', '')
+        self.synapse_file_1 = np.array_repr(self.synapse_file_1).replace('\n', '')
         # test after reset.
         self.classify("Who is professor Goel", True)
 
@@ -113,7 +115,9 @@ class Chatbot:
             # generate a training set from the corpus. This will be used
             # only if doing a training of the Neural network.
             FAQasList = f.readlines()
-            training_set = []
+
+        training_set = []
+
         for s in FAQasList:
             question = s.split("?")[0]
             answer = s.split("?")[1].rstrip()  #remote the new line char too.
