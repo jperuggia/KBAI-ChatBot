@@ -77,15 +77,20 @@ class Chatbot:
             'pronouns': [],
             'verb': [],
             'det': [],
+            'digits': [], #cardinal digits
             #
             "possibleAnswer": [],
+            "otherInfo": [],
             "inputQuestion": base_info["question"].lower(),
             "answer": answer_str,
             "wh_det": {
                 "who": [],
                 "what": [],
                 "when": [],
-                "where": []
+                "how": [],
+                "which": [],
+                "where": [],
+                "why": []
             },
             # possible extension
             "parent_frames": [],
@@ -102,11 +107,15 @@ class Chatbot:
                 frame["nouns"].append(word.lower())
             elif tag.startswith('PR'):
                 frame["pronouns"].append(word.lower())
+            elif tag.startswith('CD'):
+                frame["digits"].append(word.lower())
             elif tag.startswith('DT'):
                 frame["det"].append(word.lower())
             elif tag.startswith('WD') or tag.startswith('WR') or tag.startswith('WP'):
                 wd = word.lower()
                 frame["wh_det"][wd].append(answer_str)
+            else:
+                frame["otherInfo"].append(word.lower())
         return frame
 
     def find_most_similar_frame(self, question_frame):
@@ -145,6 +154,15 @@ class Chatbot:
         for n in question_frame["det"]:
             if n in knowledge_frame["det"]:
                 total_points += 5
+
+        for n in question_frame["digits"]:
+            if n in knowledge_frame["digits"]:
+                total_points += 3
+
+        for n in question_frame["otherInfo"]:
+            if n in knowledge_frame["otherInfo"]:
+                total_points += 1
+
 
         for n in question_frame["wh_det"]:
             # if the answer is found, we want to use it. If multiple, we need to go down more frames.
@@ -204,3 +222,9 @@ class Chatbot:
         # in the next call to Chatbot()
         # Do not change this return statement
         return True, response + "\nIs the response correct (yes/no)?"
+
+
+while i < 10:
+    randNum = randint(1, 6)
+    rando[randNum] = rando[randNum]+1
+return max(rando.iteritems(), key=operator.itemgetter(1))[0]
