@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ab3fcd53-f11d-4394-9889-c25a076df252" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Chatbot.py" afterPath="$PROJECT_DIR$/Chatbot.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log.txt" afterPath="$PROJECT_DIR$/log.txt" />
     </list>
@@ -18,7 +17,7 @@
     <SUITE FILE_PATH="coverage/KBAI_ChatBot$Autograder_OG.coverage" NAME="Autograder OG Coverage Results" MODIFIED="1508990297604" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/KBAI_ChatBot$Chatbot.coverage" NAME="Chatbot Coverage Results" MODIFIED="1507789224655" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/KBAI_ChatBot$ChatbotTester.coverage" NAME="ChatbotTester Coverage Results" MODIFIED="1508901319800" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/KBAI_ChatBot$ChatbotAutograder.coverage" NAME="ChatbotAutograder Coverage Results" MODIFIED="1508990509102" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/KBAI_ChatBot$ChatbotAutograder.coverage" NAME="ChatbotAutograder Coverage Results" MODIFIED="1508992386553" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
     <splitter split-orientation="horizontal" split-proportion="0.40877497">
@@ -27,17 +26,14 @@
           <file leaf-file-name="Chatbot.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Chatbot.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="425">
-                  <caret line="162" column="35" lean-forward="true" selection-start-line="162" selection-start-column="35" selection-end-line="162" selection-end-column="35" />
+                <state relative-caret-position="680">
+                  <caret line="114" column="32" lean-forward="false" selection-start-line="114" selection-start-column="32" selection-end-line="114" selection-end-column="32" />
                   <folding>
                     <element signature="e#332#343#0" expanded="true" />
-                    <element signature="e#553#577#0" expanded="false" />
-                    <element signature="e#617#813#0" expanded="false" />
-                    <element signature="e#855#1069#0" expanded="false" />
-                    <element signature="e#8513#8904#0" expanded="false" />
-                    <element signature="e#8979#9274#0" expanded="false" />
-                    <element signature="e#9320#9415#0" expanded="false" />
-                    <element signature="e#9457#10197#0" expanded="false" />
+                    <element signature="e#621#645#0" expanded="false" />
+                    <element signature="e#1498#2051#0" expanded="false" />
+                    <element signature="e#5810#8731#0" expanded="false" />
+                    <element signature="e#9391#9486#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -47,10 +43,10 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="Fall2017syllabusFAQ.txt" pinned="false" current-in-tab="false">
+          <file leaf-file-name="Fall2017syllabusFAQ.txt" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Fall2017syllabusFAQ.txt">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="669">
+                <state relative-caret-position="1785">
                   <caret line="108" column="50" lean-forward="true" selection-start-line="108" selection-start-column="50" selection-end-line="108" selection-end-column="50" />
                   <folding />
                 </state>
@@ -82,11 +78,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="log.txt" pinned="false" current-in-tab="true">
+          <file leaf-file-name="log.txt" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/log.txt">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="204">
-                  <caret line="12" column="60" lean-forward="true" selection-start-line="12" selection-start-column="60" selection-end-line="12" selection-end-column="60" />
+                <state relative-caret-position="225216">
+                  <caret line="13248" column="26" lean-forward="true" selection-start-line="13248" selection-start-column="26" selection-end-line="13248" selection-end-column="26" />
                   <folding />
                 </state>
               </provider>
@@ -125,7 +121,6 @@
       <find>How many projects</find>
       <find>find_most_similar_frame</find>
       <find>stemmer</find>
-      <find>clean_up_sentence</find>
       <find>bag_of_words</find>
       <find>train_network</find>
       <find>training</find>
@@ -133,10 +128,13 @@
       <find>output.append(</find>
       <find>classify</find>
       <find>FAQAsList</find>
-      <find>detect_project_or_assignment</find>
       <find>stopword</find>
       <find>stopwords</find>
       <find>stopwrods</find>
+      <find>clean_up_sentence</find>
+      <find>detect_project_or_assignment</find>
+      <find>classify(</find>
+      <find>stem(</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -155,8 +153,8 @@
         <option value="$PROJECT_DIR$/Fall2017syllabusFAQ.txt" />
         <option value="$PROJECT_DIR$/FrameChatbot.py" />
         <option value="$PROJECT_DIR$/ChatbotAutograder.py" />
-        <option value="$PROJECT_DIR$/Chatbot.py" />
         <option value="$PROJECT_DIR$/log.txt" />
+        <option value="$PROJECT_DIR$/Chatbot.py" />
       </list>
     </option>
   </component>
@@ -324,6 +322,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="2576" height="1416" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.08505564" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -335,7 +334,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2483871" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3109375" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3109375" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.06796502" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -387,13 +386,10 @@
           <caret line="200" column="0" lean-forward="true" selection-start-line="200" selection-start-column="0" selection-end-line="200" selection-end-column="0" />
           <folding>
             <element signature="e#332#343#0" expanded="true" />
-            <element signature="e#553#577#0" expanded="false" />
-            <element signature="e#617#813#0" expanded="false" />
-            <element signature="e#855#1069#0" expanded="false" />
-            <element signature="e#8513#8904#0" expanded="false" />
-            <element signature="e#8979#9274#0" expanded="false" />
-            <element signature="e#9320#9415#0" expanded="false" />
-            <element signature="e#9457#10197#0" expanded="false" />
+            <element signature="e#621#645#0" expanded="false" />
+            <element signature="e#1498#2051#0" expanded="false" />
+            <element signature="e#5810#8731#0" expanded="false" />
+            <element signature="e#9391#9486#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -492,13 +488,10 @@
           <caret line="232" column="10" lean-forward="false" selection-start-line="232" selection-start-column="10" selection-end-line="232" selection-end-column="10" />
           <folding>
             <element signature="e#332#343#0" expanded="true" />
-            <element signature="e#553#577#0" expanded="false" />
-            <element signature="e#617#813#0" expanded="false" />
-            <element signature="e#855#1069#0" expanded="false" />
-            <element signature="e#8513#8904#0" expanded="false" />
-            <element signature="e#8979#9274#0" expanded="false" />
-            <element signature="e#9320#9415#0" expanded="false" />
-            <element signature="e#9457#10197#0" expanded="false" />
+            <element signature="e#621#645#0" expanded="false" />
+            <element signature="e#1498#2051#0" expanded="false" />
+            <element signature="e#5810#8731#0" expanded="false" />
+            <element signature="e#9391#9486#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -568,13 +561,10 @@
           <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
           <folding>
             <element signature="e#332#343#0" expanded="true" />
-            <element signature="e#553#577#0" expanded="false" />
-            <element signature="e#617#813#0" expanded="false" />
-            <element signature="e#855#1069#0" expanded="false" />
-            <element signature="e#8513#8904#0" expanded="false" />
-            <element signature="e#8979#9274#0" expanded="false" />
-            <element signature="e#9320#9415#0" expanded="false" />
-            <element signature="e#9457#10197#0" expanded="false" />
+            <element signature="e#621#645#0" expanded="false" />
+            <element signature="e#1498#2051#0" expanded="false" />
+            <element signature="e#5810#8731#0" expanded="false" />
+            <element signature="e#9391#9486#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -610,13 +600,10 @@
           <caret line="61" column="49" lean-forward="false" selection-start-line="61" selection-start-column="49" selection-end-line="61" selection-end-column="49" />
           <folding>
             <element signature="e#332#343#0" expanded="true" />
-            <element signature="e#553#577#0" expanded="false" />
-            <element signature="e#617#813#0" expanded="false" />
-            <element signature="e#855#1069#0" expanded="false" />
-            <element signature="e#8513#8904#0" expanded="false" />
-            <element signature="e#8979#9274#0" expanded="false" />
-            <element signature="e#9320#9415#0" expanded="false" />
-            <element signature="e#9457#10197#0" expanded="false" />
+            <element signature="e#621#645#0" expanded="false" />
+            <element signature="e#1498#2051#0" expanded="false" />
+            <element signature="e#5810#8731#0" expanded="false" />
+            <element signature="e#9391#9486#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -706,14 +693,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Fall2017syllabusFAQ.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="669">
-          <caret line="108" column="50" lean-forward="true" selection-start-line="108" selection-start-column="50" selection-end-line="108" selection-end-column="50" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Refactor.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="728">
@@ -735,27 +714,32 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/log.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225216">
+          <caret line="13248" column="26" lean-forward="true" selection-start-line="13248" selection-start-column="26" selection-end-line="13248" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Chatbot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="162" column="35" lean-forward="true" selection-start-line="162" selection-start-column="35" selection-end-line="162" selection-end-column="35" />
+        <state relative-caret-position="680">
+          <caret line="114" column="32" lean-forward="false" selection-start-line="114" selection-start-column="32" selection-end-line="114" selection-end-column="32" />
           <folding>
             <element signature="e#332#343#0" expanded="true" />
-            <element signature="e#553#577#0" expanded="false" />
-            <element signature="e#617#813#0" expanded="false" />
-            <element signature="e#855#1069#0" expanded="false" />
-            <element signature="e#8513#8904#0" expanded="false" />
-            <element signature="e#8979#9274#0" expanded="false" />
-            <element signature="e#9320#9415#0" expanded="false" />
-            <element signature="e#9457#10197#0" expanded="false" />
+            <element signature="e#621#645#0" expanded="false" />
+            <element signature="e#1498#2051#0" expanded="false" />
+            <element signature="e#5810#8731#0" expanded="false" />
+            <element signature="e#9391#9486#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/log.txt">
+    <entry file="file://$PROJECT_DIR$/Fall2017syllabusFAQ.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="60" lean-forward="true" selection-start-line="12" selection-start-column="60" selection-end-line="12" selection-end-column="60" />
+        <state relative-caret-position="1785">
+          <caret line="108" column="50" lean-forward="true" selection-start-line="108" selection-start-column="50" selection-end-line="108" selection-end-column="50" />
           <folding />
         </state>
       </provider>

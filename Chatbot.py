@@ -11,12 +11,14 @@ change this file during the project.
 
 import nltk
 from nltk.corpus import stopwords
+from nltk.stem import WordNetLemmatizer
 import numpy as np
 import re
 import time
 
 
 stemmer = nltk.LancasterStemmer()
+lamma = WordNetLemmatizer()
 
 
 def sigmoid(x):
@@ -31,7 +33,10 @@ def clean_up_sentence(sentence):
     # tokenize the pattern
     sentence_words = nltk.word_tokenize(sentence)
     # stem each word
+    # sentence_words = [stemmer.stem(word.lower()) for word in sentence_words]
+    sentence_words = [lamma.lemmatize(w.lower()) for w in sentence_words]
     sentence_words = [stemmer.stem(word.lower()) for word in sentence_words]
+
     return sentence_words
 
 
@@ -73,21 +78,19 @@ def detect_project_or_assignment(sentence):
 class Chatbot:
 
     def __init__(self,FAQPathFilename):
-
         TRAIN_NETWORK = True
-        TRAINING_FILE_NAME = "synapses_2.json"
 
         # FAQPathFilename is string containing
         # path and filename to text corpus in FAQ format.
         self.FAQPathFilename = FAQPathFilename
 
-        self.ERROR_THRESHOLD = 0.13
+        self.ERROR_THRESHOLD = 0.15
 
         # The neural network will use these to classify inputs and outputs.
         self.documents = []
         self.classes = []
         self.words = []
-        self.ignore_words = ["?", ".", "!", ","]
+        self.ignore_words = ["?", ".", "!", ",", "frog"]
         # the training data for the NN
         self.training = []
         self.output = []
@@ -109,9 +112,9 @@ class Chatbot:
         3
         '''
         # network variables
-        self.hidden_neurons = 13
+        self.hidden_neurons = 11
         self.alpha = 0.1
-        self.iterations = 120000
+        self.iterations = 100000
         self.dropout = False
         self.dropout_percent = 0.5
 
@@ -155,7 +158,11 @@ class Chatbot:
         self.words = [w.lower() for w in self.words if w not in ignore_words]
         s_words = set(stopwords.words('english'))
         self.words = [w for w in self.words if w not in s_words]
-        self.words = [stemmer.stem(w) for w in self.words if w not in ignore_words]
+
+        # self.words = [stemmer.stem(w) for w in self.words]
+
+        self.words = [lamma.lemmatize(w) for w in self.words]
+        self.words = [stemmer.stem(w) for w in self.words]
         self.words = list(set(self.words))
 
         self.classes = list(set(self.classes))
@@ -242,19 +249,16 @@ class Chatbot:
         self.synapse_1 = np.asarray(synapse_1)
         self.synapse_0 = np.asarray(synapse_0)
 
-    def think(self, sentence, use_alternate_synapse):
+    def think(self, sentence):
+        sentence = detect_project_or_assignment(sentence)
         x = bag_of_words(sentence, self.words)
         level_0 = x
-        if use_alternate_synapse:
-            level_1 = sigmoid(np.dot(level_0, self.synapse_file_0))
-            level_2 = sigmoid(np.dot(level_1, self.synapse_file_1))
-        else:
-            level_1 = sigmoid(np.dot(level_0, self.synapse_0))
-            level_2 = sigmoid(np.dot(level_1, self.synapse_1))
+        level_1 = sigmoid(np.dot(level_0, self.synapse_0))
+        level_2 = sigmoid(np.dot(level_1, self.synapse_1))
         return level_2
 
-    def classify(self, sentence, use_alternate_synapse = False):
-        results = self.think(sentence, use_alternate_synapse)
+    def classify(self, sentence):
+        results = self.think(sentence)
         results = [[i, r] for i, r in enumerate(results) if r > self.ERROR_THRESHOLD]
         results.sort(key=lambda x: x[1], reverse=True)
         return_results = [[self.classes[r[0]], r[1]] for r in results]
@@ -269,7 +273,7 @@ class Chatbot:
         if msg == "Who are you?":
             return False, "KBAI student, " + self.FAQPathFilename
 
-        msg = detect_project_or_assignment(msg)
+
         r = self.classify(msg)
         # get the best value from R that I can find.
         if len(r) < 1:
