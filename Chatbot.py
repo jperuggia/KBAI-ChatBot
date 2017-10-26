@@ -8,12 +8,9 @@ I highly recommend just calling your code from this file
 (put your chatbot code in another file) in case we need to
 change this file during the project.
 """
-import datetime
-import json
 
 import nltk
-from textblob import TextBlob
-from textblob.classifiers import NaiveBayesClassifier
+from nltk.corpus import stopwords
 import numpy as np
 import re
 import time
@@ -153,8 +150,14 @@ class Chatbot:
 
         # stem and lower each word, remove duplicates.
         ignore_words = ["?", "!", "."]
-        self.words = [stemmer.stem(w.lower()) for w in self.words if w not in ignore_words]
+
+        # remove stop words?
+        self.words = [w.lower() for w in self.words if w not in ignore_words]
+        s_words = set(stopwords.words('english'))
+        self.words = [w for w in self.words if w not in s_words]
+        self.words = [stemmer.stem(w) for w in self.words if w not in ignore_words]
         self.words = list(set(self.words))
+
         self.classes = list(set(self.classes))
 
     def create_training_data(self):
