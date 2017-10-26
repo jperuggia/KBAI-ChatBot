@@ -8,210 +8,271 @@ I highly recommend just calling your code from this file
 (put your chatbot code in another file) in case we need to
 change this file during the project.
 """
+import datetime
+import json
 
 import nltk
 from textblob import TextBlob
-import operator
+from textblob.classifiers import NaiveBayesClassifier
+import numpy as np
+import re
+import time
 
 
+stemmer = nltk.LancasterStemmer()
 
-def generate_question_answer(s):
-    question = s.split("?")[0]
-    answer = s.split("?")[1]
-    fa = {
-        "question": question,
-        "answer": answer
-    }
-    return fa
+
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+
+def sigmoid_output_to_derivative(output):
+    return output*(1-output)
+
+
+def clean_up_sentence(sentence):
+    # tokenize the pattern
+    sentence_words = nltk.word_tokenize(sentence)
+    # stem each word
+    sentence_words = [stemmer.stem(word.lower()) for word in sentence_words]
+    return sentence_words
+
+
+def bag_of_words(sentence, words):
+    sentence_words = clean_up_sentence(sentence)
+    bag = [0] * len(words)
+    for s in sentence_words:
+        for i, w in enumerate(words):
+            if w == s:
+                bag[i] = 1
+
+    return np.array(bag)
+
+
+# Method to determine if the sentence contains
+# an Assignment # or Project # word. To help with accuracy
+# the bot will combine these to be a single word.
+def detect_project_or_assignment(sentence):
+    a = re.search(r'\b(project)\b\s\d+', sentence)
+    p = re.search(r'\b(assignment)\b\s\d+', sentence)
+
+    if a is not None and a.start() >=0:
+        p1 = sentence[:a.start()]
+        p2 = sentence[a.start(): a.end()]
+        p2 = "".join(p2.split())
+        p3 = sentence[a.end(): ]
+        sentence = p1 + p2 + p3
+    elif p is not None and p.start() >= 0:
+        p1 = sentence[:p.start()]
+        p2 = sentence[p.start(): p.end()]
+        p2 = "".join(p2.split())
+        p3 = sentence[p.end(): ]
+        sentence = p1 + p2 + p3
+
+    return sentence
+
 
 
 class Chatbot:
 
     def __init__(self,FAQPathFilename):
+
+        TRAIN_NETWORK = True
+        TRAINING_FILE_NAME = "synapses_2.json"
+
         # FAQPathFilename is string containing
         # path and filename to text corpus in FAQ format.
         self.FAQPathFilename = FAQPathFilename
-        with open(FAQPathFilename,"r", encoding="utf-8") as f: # Example code
-            self.FAQasList = f.readlines()                     # Example code
 
-        # time to let the network learn.
-        self.KnowledgeBase = self.learn()
+        self.ERROR_THRESHOLD = 0.13
 
-        return
+        # The neural network will use these to classify inputs and outputs.
+        self.documents = []
+        self.classes = []
+        self.words = []
+        self.ignore_words = ["?", ".", "!", ","]
+        # the training data for the NN
+        self.training = []
+        self.output = []
+        # network layers.
+        self.synapse_0 = []
+        self.synapse_1 = []
 
-    def learn(self):
-        knowledge_base = {}
-        i = 0
-        for s in self.FAQasList:
-            base_info = generate_question_answer(s)
-            base_info = self.generate_knowledge_item(base_info)
-            knowledge_base[i] = base_info
-            i += 1
+        self.synapse_file_0 = []
+        self.synapse_file_1 = []
 
-        return knowledge_base
+        # Nodes | Output list
+        '''''''''''''''''''''
+        09      | 129.3  / 132
+        10      | 
+        13 /.13 | 125.9 / 128
+        15      |  124 / 126
+        20      |  
+        25      |
+        3
+        '''
+        # network variables
+        self.hidden_neurons = 13
+        self.alpha = 0.1
+        self.iterations = 120000
+        self.dropout = False
+        self.dropout_percent = 0.5
 
-    # takes a string from the FAQ and returns the question and answer in a dictionary.
+        self.parse_corpus()  # always parse the corpus.
 
-    def check_for_previous_frame(self):
-        return False
+        self.create_training_data()
+        X = np.array(self.training)
+        y = np.array(self.output)
 
-    def add_possible_answer_to_frame(self, answer):
-        return True
+        if TRAIN_NETWORK:
+            self.train_network(X, y)
 
-    def generate_knowledge_item(self, base_info, check_base=True):
-        if self.check_for_previous_frame() and check_base:
-            # the frame with similar data points exists. Something must be done!
-            return False
+    def parse_corpus(self):
 
-        # Time to create a new knowledge item. A question the Agent has never seen before!
-        question_tb = TextBlob(base_info["question"])
-        blob_tags = question_tb.tags
+        with open(self.FAQPathFilename, "r", encoding="utf-8") as f:
+            # generate a training set from the corpus. This will be used
+            # only if doing a training of the Neural network.
+            FAQasList = f.readlines()
 
-        if check_base:
-            answer_str = base_info["answer"]
+        training_set = []
+
+        for s in FAQasList:
+            question = s.split("?")[0]
+            answer = s.split("?")[1].rstrip()
+            training_set.append({"answer": answer, "question": question})
+
+        # loop over each sentence in training data.
+        for pattern in training_set:
+            pattern["question"] = detect_project_or_assignment(pattern["question"])
+            w = nltk.word_tokenize(pattern["question"])
+            self.words.extend(w)
+            self.documents.append((w, pattern["answer"]))
+            # add class to list if not already there.
+            if pattern["answer"] not in self.classes:
+                self.classes.append(pattern["answer"])
+
+        # stem and lower each word, remove duplicates.
+        ignore_words = ["?", "!", "."]
+        self.words = [stemmer.stem(w.lower()) for w in self.words if w not in ignore_words]
+        self.words = list(set(self.words))
+        self.classes = list(set(self.classes))
+
+    def create_training_data(self):
+        output_empty = [0] * len(self.classes)
+        for doc in self.documents:
+            # initialize our bag of words
+            bag = []
+            # list of tokenized words for the pattern
+            pattern_words = doc[0]
+            # stem each word
+            pattern_words = [stemmer.stem(word.lower()) for word in pattern_words]
+            # create our bag of words array
+            for w in self.words:
+                bag.append(1) if w in pattern_words else bag.append(0)
+
+            self.training.append(bag)
+            # output is a '0' for each tag and '1' for current tag
+            output_row = list(output_empty)
+            output_row[self.classes.index(doc[1])] = 1
+            self.output.append(output_row)
+
+    def train_network(self, X, y):
+        print("The chatbot is learning.. please be patient")
+        np.random.seed(1)
+        last_mean_error = 1
+
+        synapse_0 = 2 * np.random.random((len(X[0]), self.hidden_neurons)) - 1
+        synapse_1 = 2 * np.random.random((self.hidden_neurons, len(self.classes))) - 1
+        prev_synapse_0_weight_update = np.zeros_like(synapse_0)
+        prev_synapse_1_weight_update = np.zeros_like(synapse_1)
+
+        synapse_0_direction_count = np.zeros_like(synapse_0)
+        synapse_1_direction_count = np.zeros_like(synapse_1)
+
+        for j in iter(range(self.iterations + 1)):
+            # Feed forward through layers 0, 1, and 2
+            layer_0 = X
+            layer_1 = sigmoid(np.dot(layer_0, synapse_0))
+
+            if self.dropout:
+                layer_1 *= np.random.binomial([np.ones((len(X), self.hidden_neurons))], 1 - self.dropout_percent)[0] * (
+                    1.0 / (1 - self.dropout_percent))
+
+            layer_2 = sigmoid(np.dot(layer_1, synapse_1))
+
+            # how much did we miss the target value?
+            layer_2_error = y - layer_2
+
+            if (j % 10000) == 0 and j > 5000:
+                # if this 10k iteration's error is greater than the last iteration, break out
+                if np.mean(np.abs(layer_2_error)) < last_mean_error:
+                    print("Learning step of " + str(j) + ". Has delta error of: " + str(np.mean(np.abs(layer_2_error))))
+                    last_mean_error = np.mean(np.abs(layer_2_error))
+
+            # in what direction is the target value?
+            # were we really sure? if so, don't change too much.
+            layer_2_delta = layer_2_error * sigmoid_output_to_derivative(layer_2)
+
+            # how much did each l1 value contribute to the l2 error (according to the weights)?
+            layer_1_error = layer_2_delta.dot(synapse_1.T)
+
+            # in what direction is the target l1?
+            # were we really sure? if so, don't change too much.
+            layer_1_delta = layer_1_error * sigmoid_output_to_derivative(layer_1)
+
+            synapse_1_weight_update = (layer_1.T.dot(layer_2_delta))
+            synapse_0_weight_update = (layer_0.T.dot(layer_1_delta))
+
+            if j > 0:
+                synapse_0_direction_count += np.abs(
+                    ((synapse_0_weight_update > 0) + 0) - ((prev_synapse_0_weight_update > 0) + 0))
+                synapse_1_direction_count += np.abs(
+                    ((synapse_1_weight_update > 0) + 0) - ((prev_synapse_1_weight_update > 0) + 0))
+
+            synapse_1 += self.alpha * synapse_1_weight_update
+            synapse_0 += self.alpha * synapse_0_weight_update
+
+            prev_synapse_0_weight_update = synapse_0_weight_update
+            prev_synapse_1_weight_update = synapse_1_weight_update
+
+        # set the global self to the things that are needed for synapse.
+        self.synapse_1 = np.asarray(synapse_1)
+        self.synapse_0 = np.asarray(synapse_0)
+
+    def think(self, sentence, use_alternate_synapse):
+        x = bag_of_words(sentence, self.words)
+        level_0 = x
+        if use_alternate_synapse:
+            level_1 = sigmoid(np.dot(level_0, self.synapse_file_0))
+            level_2 = sigmoid(np.dot(level_1, self.synapse_file_1))
         else:
-            answer_str = ''
+            level_1 = sigmoid(np.dot(level_0, self.synapse_0))
+            level_2 = sigmoid(np.dot(level_1, self.synapse_1))
+        return level_2
 
-        frame = {
-            'nouns': [],
-            'pronouns': [],
-            'verb': [],
-            'det': [],
-            'digits': [], #cardinal digits
-            #
-            "possibleAnswer": [],
-            "otherInfo": [],
-            "inputQuestion": base_info["question"].lower(),
-            "answer": answer_str,
-            "wh_det": {
-                "who": [],
-                "what": [],
-                "when": [],
-                "how": [],
-                "which": [],
-                "where": [],
-                "why": []
-            },
-            # possible extension
-            "parent_frames": [],
-            "child_frames": []
-        }
-
-        for t in blob_tags:
-            word = ''.join(t[0])
-            tag = t[1]
-
-            if tag.startswith('V'):
-                frame["verb"].append(word.lower())
-            elif tag.startswith('N'):
-                frame["nouns"].append(word.lower())
-            elif tag.startswith('PR'):
-                frame["pronouns"].append(word.lower())
-            elif tag.startswith('CD'):
-                frame["digits"].append(word.lower())
-            elif tag.startswith('DT'):
-                frame["det"].append(word.lower())
-            elif tag.startswith('WD') or tag.startswith('WR') or tag.startswith('WP'):
-                wd = word.lower()
-                frame["wh_det"][wd].append(answer_str)
-            else:
-                frame["otherInfo"].append(word.lower())
-        return frame
-
-    def find_most_similar_frame(self, question_frame):
-        knowledge_base_size = len(self.KnowledgeBase)
-        i = 0
-        percent_likely = {}
-        while i < knowledge_base_size:
-            percent_likely[i] = self.question_fitness(i, question_frame)
-            if percent_likely[i] == float("inf"):
-                break #stop execution
-            i += 1
-
-        return percent_likely
-
-    def question_fitness(self,knowledge_base_index, question_frame):
-        # define the fitness based on the frames "knowledge"
-        total_points = 0
-        knowledge_frame = self.KnowledgeBase[knowledge_base_index]
-
-        if question_frame["inputQuestion"] == knowledge_frame["inputQuestion"]:
-            return float("inf") #this is the answer
-
-        # find total points for frame
-        for n in question_frame["nouns"]:
-            if n in knowledge_frame["nouns"]:
-                total_points += 5
-
-        for n in question_frame["pronouns"]:
-            if n in knowledge_frame["pronouns"]:
-                total_points += 5
-
-        for n in question_frame["verb"]:
-            if n in knowledge_frame["verb"]:
-                total_points += 5
-
-        for n in question_frame["det"]:
-            if n in knowledge_frame["det"]:
-                total_points += 5
-
-        for n in question_frame["digits"]:
-            if n in knowledge_frame["digits"]:
-                total_points += 3
-
-        for n in question_frame["otherInfo"]:
-            if n in knowledge_frame["otherInfo"]:
-                total_points += 1
-
-
-        for n in question_frame["wh_det"]:
-            # if the answer is found, we want to use it. If multiple, we need to go down more frames.
-            if len(knowledge_frame["wh_det"][n]) > 0:
-                total_points + 10
-
-        return total_points
-
-    def ask_question(self, question):
-        q_a_frame = {
-            "question": question
-        }
-        search_frame = self.generate_knowledge_item(q_a_frame, False)
-        results = self.find_most_similar_frame(search_frame)
-
-        v = list(results.values())
-        rt = list(results.keys())[v.index(max(v))]
-
-        return self.KnowledgeBase[rt]["answer"]
+    def classify(self, sentence, use_alternate_synapse = False):
+        results = self.think(sentence, use_alternate_synapse)
+        results = [[i, r] for i, r in enumerate(results) if r > self.ERROR_THRESHOLD]
+        results.sort(key=lambda x: x[1], reverse=True)
+        return_results = [[self.classes[r[0]], r[1]] for r in results]
+        return return_results
 
     def UserFeedback(self,yesorno):
         #TODO: user calls this with "yes" or "no" feedback when InputOutput returns TRUE
         return
 
     def InputOutput(self,msg):
-        # msg is text to chatbot: question or "yes" or "no"
-        # return expect response from user, agent response
-        # return True,  response text as string
-        # return False, "I do not know"
 
         if msg == "Who are you?":
             return False, "KBAI student, " + self.FAQPathFilename
 
-        # TODO: Insert calls to your chatbot here
-        #       Your chatbot should return '' if
-        #       it does not have an answer.
-        response = ''
-        # for qa in self.FAQasList:           # Example code
-        #     question = qa.split('?')[0]     # Example code
-        #     answer =qa.split('?')[1]        # Example code
-        #     if question == msg:
-        #         response = answer
-        #         break
-
-        if response == '':
-            response = self.ask_question(msg)
-
-        # You should not need to change any of the code below
-        # this line.
+        msg = detect_project_or_assignment(msg)
+        r = self.classify(msg)
+        # get the best value from R that I can find.
+        if len(r) < 1:
+            response = ''
+        else:
+            response = max(r, key=lambda item: item[1])[0]
 
         # If your agent does not know the answer
         if not response:
@@ -223,8 +284,3 @@ class Chatbot:
         # Do not change this return statement
         return True, response + "\nIs the response correct (yes/no)?"
 
-
-while i < 10:
-    randNum = randint(1, 6)
-    rando[randNum] = rando[randNum]+1
-return max(rando.iteritems(), key=operator.itemgetter(1))[0]

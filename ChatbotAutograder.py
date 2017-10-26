@@ -29,6 +29,8 @@ def ChatbotAutograder(ScriptFilename,FAQFilename,LogFilename):
         logFile = open(LogFilename,"a")
 
     score = 0.0
+    correct = 0
+    skipped = 0
     for qa in scriptFileasList:
         question = qa.split('?')[0]
         answer =qa.split('?')[1]
@@ -38,9 +40,10 @@ def ChatbotAutograder(ScriptFilename,FAQFilename,LogFilename):
 
         Type,response = chatbot.InputOutput(question)
         action = "0.0"
-        if Type == True:
+        if Type == True or answer.split('\n')[0] == 'I do not know':
             if response.split('\n')[0] == answer.split('\n')[0]:
                 score += 1.0
+                correct += 1
                 action = "1.0"
                 chatbot.UserFeedback("yes")
             else:
@@ -62,6 +65,7 @@ def ChatbotAutograder(ScriptFilename,FAQFilename,LogFilename):
         if not Type: print()
         print()
     print("Score:", score)
+    print("correct: ", correct)
 
 def main(argv):
     # https://www.tutorialspoint.com/python/python_command_line_arguments.htm
