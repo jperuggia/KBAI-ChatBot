@@ -55,6 +55,7 @@ def bag_of_words(sentence, words):
 # an Assignment # or Project # word. To help with accuracy
 # the bot will combine these to be a single word.
 def detect_project_or_assignment(sentence):
+    sentence = sentence.lower()
     a = re.search(r'\b(project)\b\s\d+', sentence)
     p = re.search(r'\b(assignment)\b\s\d+', sentence)
 
@@ -90,7 +91,7 @@ class Chatbot:
         self.documents = []
         self.classes = []
         self.words = []
-        self.ignore_words = ["?", ".", "!", ",", "frog"]
+        self.ignore_words = ["?", ".", "!", ",", "'s", "2" ]
         # the training data for the NN
         self.training = []
         self.output = []
@@ -115,9 +116,6 @@ class Chatbot:
         self.hidden_neurons = 11
         self.alpha = 0.1
         self.iterations = 100000
-        self.dropout = False
-        self.dropout_percent = 0.5
-
         self.parse_corpus()  # always parse the corpus.
 
         self.create_training_data()
@@ -139,7 +137,7 @@ class Chatbot:
         for s in FAQasList:
             question = s.split("?")[0]
             answer = s.split("?")[1].rstrip()
-            training_set.append({"answer": answer, "question": question})
+            training_set.append({"answer": answer, "question": question.lower()})
 
         # loop over each sentence in training data.
         for pattern in training_set:
@@ -152,18 +150,16 @@ class Chatbot:
                 self.classes.append(pattern["answer"])
 
         # stem and lower each word, remove duplicates.
-        ignore_words = ["?", "!", "."]
-
         # remove stop words?
-        self.words = [w.lower() for w in self.words if w not in ignore_words]
+
         s_words = set(stopwords.words('english'))
         self.words = [w for w in self.words if w not in s_words]
-
-        # self.words = [stemmer.stem(w) for w in self.words]
-
         self.words = [lamma.lemmatize(w) for w in self.words]
         self.words = [stemmer.stem(w) for w in self.words]
+        self.words = [w.lower() for w in self.words if w not in self.ignore_words]
         self.words = list(set(self.words))
+        # sort it!
+        self.words = sorted(self.words)
 
         self.classes = list(set(self.classes))
 
@@ -203,11 +199,6 @@ class Chatbot:
             # Feed forward through layers 0, 1, and 2
             layer_0 = X
             layer_1 = sigmoid(np.dot(layer_0, synapse_0))
-
-            if self.dropout:
-                layer_1 *= np.random.binomial([np.ones((len(X), self.hidden_neurons))], 1 - self.dropout_percent)[0] * (
-                    1.0 / (1 - self.dropout_percent))
-
             layer_2 = sigmoid(np.dot(layer_1, synapse_1))
 
             # how much did we miss the target value?
