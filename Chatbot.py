@@ -33,7 +33,6 @@ def clean_up_sentence(sentence):
     # tokenize the pattern
     sentence_words = nltk.word_tokenize(sentence)
     # stem each word
-    # sentence_words = [stemmer.stem(word.lower()) for word in sentence_words]
     sentence_words = [lamma.lemmatize(w.lower()) for w in sentence_words]
     sentence_words = [stemmer.stem(word.lower()) for word in sentence_words]
 
@@ -63,17 +62,21 @@ def detect_project_or_assignment(sentence):
         p1 = sentence[:a.start()]
         p2 = sentence[a.start(): a.end()]
         p2 = "".join(p2.split())
-        p3 = sentence[a.end(): ]
+        p3 = sentence[a.end():]
         sentence = p1 + p2 + p3
     elif p is not None and p.start() >= 0:
         p1 = sentence[:p.start()]
         p2 = sentence[p.start(): p.end()]
         p2 = "".join(p2.split())
-        p3 = sentence[p.end(): ]
+        p3 = sentence[p.end():]
         sentence = p1 + p2 + p3
 
     return sentence
 
+
+# inspiration for NN design can be found here.
+# https://iamtrask.github.io/2015/07/12/basic-python-network/
+# https://machinelearnings.co/text-classification-using-neural-networks-f5cd7b8765c6
 
 
 class Chatbot:
@@ -84,38 +87,31 @@ class Chatbot:
         # FAQPathFilename is string containing
         # path and filename to text corpus in FAQ format.
         self.FAQPathFilename = FAQPathFilename
-
         self.ERROR_THRESHOLD = 0.15
+
+        # our learned data set. The black box of NO!
+        self.QUESTION_ASKED = ""
+        self.Incorrect_Answers = []
 
         # The neural network will use these to classify inputs and outputs.
         self.documents = []
         self.classes = []
         self.words = []
-        self.ignore_words = ["?", ".", "!", ",", "'s", "2" ]
+        self.ignore_words = ["?", ".", "!", ",", "'s", "2"]
+        self.s_words = set(stopwords.words('english'))
+
         # the training data for the NN
         self.training = []
         self.output = []
+
         # network layers.
         self.synapse_0 = []
         self.synapse_1 = []
 
-        self.synapse_file_0 = []
-        self.synapse_file_1 = []
-
-        # Nodes | Output list
-        '''''''''''''''''''''
-        09      | 129.3  / 132
-        10      | 
-        13 /.13 | 125.9 / 128
-        15      |  124 / 126
-        20      |  
-        25      |
-        3
-        '''
         # network variables
         self.hidden_neurons = 11
         self.alpha = 0.1
-        self.iterations = 100000
+        self.iterations = 50000
         self.parse_corpus()  # always parse the corpus.
 
         self.create_training_data()
@@ -151,9 +147,7 @@ class Chatbot:
 
         # stem and lower each word, remove duplicates.
         # remove stop words?
-
-        s_words = set(stopwords.words('english'))
-        self.words = [w for w in self.words if w not in s_words]
+        self.words = [w for w in self.words if w not in self.s_words]
         self.words = [lamma.lemmatize(w) for w in self.words]
         self.words = [stemmer.stem(w) for w in self.words]
         self.words = [w.lower() for w in self.words if w not in self.ignore_words]
@@ -170,8 +164,7 @@ class Chatbot:
             bag = []
             # list of tokenized words for the pattern
             pattern_words = doc[0]
-            # stem each word
-            pattern_words = [stemmer.stem(word.lower()) for word in pattern_words]
+
             # create our bag of words array
             for w in self.words:
                 bag.append(1) if w in pattern_words else bag.append(0)
@@ -187,40 +180,32 @@ class Chatbot:
         np.random.seed(1)
         last_mean_error = 1
 
-        synapse_0 = 2 * np.random.random((len(X[0]), self.hidden_neurons)) - 1
-        synapse_1 = 2 * np.random.random((self.hidden_neurons, len(self.classes))) - 1
-        prev_synapse_0_weight_update = np.zeros_like(synapse_0)
-        prev_synapse_1_weight_update = np.zeros_like(synapse_1)
+        s0 = 2 * np.random.random((len(X[0]), self.hidden_neurons)) - 1
+        s1 = 2 * np.random.random((self.hidden_neurons, len(self.classes))) - 1
+        prev_synapse_0_weight_update = np.zeros_like(s0)
+        prev_synapse_1_weight_update = np.zeros_like(s1)
 
-        synapse_0_direction_count = np.zeros_like(synapse_0)
-        synapse_1_direction_count = np.zeros_like(synapse_1)
+        synapse_0_direction_count = np.zeros_like(s0)
+        synapse_1_direction_count = np.zeros_like(s1)
 
         for j in iter(range(self.iterations + 1)):
             # Feed forward through layers 0, 1, and 2
             layer_0 = X
-            layer_1 = sigmoid(np.dot(layer_0, synapse_0))
-            layer_2 = sigmoid(np.dot(layer_1, synapse_1))
+            layer_1 = sigmoid(np.dot(layer_0, s0))
+            layer_2 = sigmoid(np.dot(layer_1, s1))
 
             # how much did we miss the target value?
             layer_2_error = y - layer_2
 
             if (j % 10000) == 0 and j > 5000:
-                # if this 10k iteration's error is greater than the last iteration, break out
+
+                # if the error is getting worse stop.
                 if np.mean(np.abs(layer_2_error)) < last_mean_error:
-                    print("Learning step of " + str(j) + ". Has delta error of: " + str(np.mean(np.abs(layer_2_error))))
                     last_mean_error = np.mean(np.abs(layer_2_error))
 
-            # in what direction is the target value?
-            # were we really sure? if so, don't change too much.
             layer_2_delta = layer_2_error * sigmoid_output_to_derivative(layer_2)
-
-            # how much did each l1 value contribute to the l2 error (according to the weights)?
-            layer_1_error = layer_2_delta.dot(synapse_1.T)
-
-            # in what direction is the target l1?
-            # were we really sure? if so, don't change too much.
+            layer_1_error = layer_2_delta.dot(s1.T)
             layer_1_delta = layer_1_error * sigmoid_output_to_derivative(layer_1)
-
             synapse_1_weight_update = (layer_1.T.dot(layer_2_delta))
             synapse_0_weight_update = (layer_0.T.dot(layer_1_delta))
 
@@ -230,22 +215,25 @@ class Chatbot:
                 synapse_1_direction_count += np.abs(
                     ((synapse_1_weight_update > 0) + 0) - ((prev_synapse_1_weight_update > 0) + 0))
 
-            synapse_1 += self.alpha * synapse_1_weight_update
-            synapse_0 += self.alpha * synapse_0_weight_update
+            s1 += self.alpha * synapse_1_weight_update
+            s0 += self.alpha * synapse_0_weight_update
 
             prev_synapse_0_weight_update = synapse_0_weight_update
             prev_synapse_1_weight_update = synapse_1_weight_update
 
         # set the global self to the things that are needed for synapse.
-        self.synapse_1 = np.asarray(synapse_1)
-        self.synapse_0 = np.asarray(synapse_0)
+        self.synapse_1 = np.asarray(s1)
+        self.synapse_0 = np.asarray(s0)
 
     def think(self, sentence):
+        # clean up the question into usable data.
         sentence = detect_project_or_assignment(sentence)
         x = bag_of_words(sentence, self.words)
+
         level_0 = x
         level_1 = sigmoid(np.dot(level_0, self.synapse_0))
         level_2 = sigmoid(np.dot(level_1, self.synapse_1))
+
         return level_2
 
     def classify(self, sentence):
@@ -256,7 +244,32 @@ class Chatbot:
         return return_results
 
     def UserFeedback(self,yesorno):
-        #TODO: user calls this with "yes" or "no" feedback when InputOutput returns TRUE
+        if yesorno.lower() == 'no':
+            # the answer we gave is not correct. Save this question to the black box of no.
+            self.Incorrect_Answers.append(self.QUESTION_ASKED)
+            self.QUESTION_ASKED = ""
+
+            #### Failed code at trying to retrain NN.
+            # q_fix = detect_project_or_assignment(self.QUESTION_ASKED.lower())
+            # new_data_set = {"answer": "I do not know", "question": q_fix}
+            # words = nltk.word_tokenize(new_data_set["question"])
+            # w = [w for w in words if w not in self.s_words]
+            # w = [lamma.lemmatize(w) for w in w]
+            # w = [stemmer.stem(w) for w in w]
+            # self.words.extend(w)
+            # self.words = list(set(self.words))
+            # self.words = sorted(self.words)
+            # if "I do not know" not in self.classes:
+            #     self.classes.append("I do not know")
+            # # remove all old knowledge from data.
+            # self.training = []
+            # self.output = []
+            # # recreate
+            # self.create_training_data()
+            # # retrain.
+            # X = np.array(self.training)
+            # y = np.array(self.output)
+            # self.train_network(X,y)
         return
 
     def InputOutput(self,msg):
@@ -264,6 +277,12 @@ class Chatbot:
         if msg == "Who are you?":
             return False, "KBAI student, " + self.FAQPathFilename
 
+        # save the question off in the memory for learning based on feedback.
+        self.QUESTION_ASKED = msg.lower()
+
+        # if the question was asked and is in the blackbox. DO NOT USE IT!
+        if self.QUESTION_ASKED in self.Incorrect_Answers:
+            return False, "I do not know."
 
         r = self.classify(msg)
         # get the best value from R that I can find.
