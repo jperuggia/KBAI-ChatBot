@@ -12,17 +12,17 @@ change this file during the project.
 import nltk
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
-import numpy as np
+from nltk.corpus import wordnet as wn
+import numpy
 import re
-import time
 
 
-stemmer = nltk.LancasterStemmer()
+stemmer = nltk.SnowballStemmer("english")
 lamma = WordNetLemmatizer()
 
 
 def sigmoid(x):
-    return 1 / (1 + np.exp(-x))
+    return 1 / (1 + numpy.exp(-x))
 
 
 def sigmoid_output_to_derivative(output):
@@ -31,11 +31,10 @@ def sigmoid_output_to_derivative(output):
 
 def clean_up_sentence(sentence):
     # tokenize the pattern
-    sentence_words = nltk.word_tokenize(sentence)
+    sentence_words = nltk.word_tokenize(sentence.lower())
     # stem each word
-    sentence_words = [lamma.lemmatize(w.lower()) for w in sentence_words]
-    sentence_words = [stemmer.stem(word.lower()) for word in sentence_words]
-
+    sentence_words = [lamma.lemmatize(w) for w in sentence_words]
+    sentence_words = [stemmer.stem(w) for w in sentence_words]
     return sentence_words
 
 
@@ -47,7 +46,7 @@ def bag_of_words(sentence, words):
             if w == s:
                 bag[i] = 1
 
-    return np.array(bag)
+    return numpy.array(bag)
 
 
 # Method to determine if the sentence contains
@@ -77,17 +76,14 @@ def detect_project_or_assignment(sentence):
 # inspiration for NN design can be found here.
 # https://iamtrask.github.io/2015/07/12/basic-python-network/
 # https://machinelearnings.co/text-classification-using-neural-networks-f5cd7b8765c6
-
-
 class Chatbot:
 
-    def __init__(self,FAQPathFilename):
-        TRAIN_NETWORK = True
-
+    def __init__(self,faq_path_filename):
+        self.faq_path_filename = faq_path_filename
+        self.faq_as_list = []
         # FAQPathFilename is string containing
         # path and filename to text corpus in FAQ format.
-        self.FAQPathFilename = FAQPathFilename
-        self.ERROR_THRESHOLD = 0.15
+        self.ERROR_THRESHOLD = 0.05
 
         # our learned data set. The black box of NO!
         self.QUESTION_ASKED = ""
@@ -109,55 +105,70 @@ class Chatbot:
         self.synapse_1 = []
 
         # network variables
-        self.hidden_neurons = 11
+        self.hidden_neurons = 15
         self.alpha = 0.1
-        self.iterations = 50000
+        self.iterations = 80000
+
         self.parse_corpus()  # always parse the corpus.
+        self.let_the_learning_begin()
 
+    def let_the_learning_begin(self):
+        self.learn_from_corpus()
         self.create_training_data()
-        X = np.array(self.training)
-        y = np.array(self.output)
-
-        if TRAIN_NETWORK:
-            self.train_network(X, y)
+        X = numpy.array(self.training)
+        y = numpy.array(self.output)
+        self.train_network(X, y)
 
     def parse_corpus(self):
 
-        with open(self.FAQPathFilename, "r", encoding="utf-8") as f:
-            # generate a training set from the corpus. This will be used
-            # only if doing a training of the Neural network.
-            FAQasList = f.readlines()
+        with open(self.faq_path_filename, "r", encoding="utf-8") as f:  # Example code
+            self.faq_as_list = f.readlines()  # Example code
 
+        self.faq_as_list[len(self.faq_as_list)-1] += '\n'
+
+
+    def learn_from_corpus(self):
+        # clear some stuff out
+        self.words = []
+        self.documents = []
+        self.classes = []
         training_set = []
 
-        for s in FAQasList:
+        for s in self.faq_as_list:
             question = s.split("?")[0]
             answer = s.split("?")[1].rstrip()
             training_set.append({"answer": answer, "question": question.lower()})
 
+        # print("training set size is : " +en(training_set))
+
         # loop over each sentence in training data.
         for pattern in training_set:
             pattern["question"] = detect_project_or_assignment(pattern["question"])
-            w = nltk.word_tokenize(pattern["question"])
-            self.words.extend(w)
-            self.documents.append((w, pattern["answer"]))
+            q_words = nltk.word_tokenize(pattern["question"])
+
+            # q_words = [w for w in q_words if w not in self.s_words]
+
+            q_words = [lamma.lemmatize(w) for w in q_words]
+
+            q_words = [stemmer.stem(w) for w in q_words]
+
+            q_words = [w.lower() for w in q_words if w not in self.ignore_words]
+
+            self.words.extend(q_words)
+            self.documents.append((q_words, pattern["answer"]))
+
             # add class to list if not already there.
             if pattern["answer"] not in self.classes:
                 self.classes.append(pattern["answer"])
 
-        # stem and lower each word, remove duplicates.
-        # remove stop words?
-        self.words = [w for w in self.words if w not in self.s_words]
-        self.words = [lamma.lemmatize(w) for w in self.words]
-        self.words = [stemmer.stem(w) for w in self.words]
-        self.words = [w.lower() for w in self.words if w not in self.ignore_words]
         self.words = list(set(self.words))
         # sort it!
         self.words = sorted(self.words)
-
         self.classes = list(set(self.classes))
 
     def create_training_data(self):
+        self.training = []
+        self.output = []
         output_empty = [0] * len(self.classes)
         for doc in self.documents:
             # initialize our bag of words
@@ -167,7 +178,10 @@ class Chatbot:
 
             # create our bag of words array
             for w in self.words:
-                bag.append(1) if w in pattern_words else bag.append(0)
+                if w in pattern_words:
+                    bag.append(1)
+                else:
+                    bag.append(0)
 
             self.training.append(bag)
             # output is a '0' for each tag and '1' for current tag
@@ -176,32 +190,36 @@ class Chatbot:
             self.output.append(output_row)
 
     def train_network(self, X, y):
+
+        self.hidden_neurons = int( (len(X) + len(y))/2 )
+
+        # self.hidden_neurons = round(int(len(self.words)/3),1)
         print("The chatbot is learning.. please be patient")
-        np.random.seed(1)
+        numpy.random.seed(1)
         last_mean_error = 1
 
-        s0 = 2 * np.random.random((len(X[0]), self.hidden_neurons)) - 1
-        s1 = 2 * np.random.random((self.hidden_neurons, len(self.classes))) - 1
-        prev_synapse_0_weight_update = np.zeros_like(s0)
-        prev_synapse_1_weight_update = np.zeros_like(s1)
+        s0 = 2 * numpy.random.random((len(X[0]), self.hidden_neurons)) - 1
+        s1 = 2 * numpy.random.random((self.hidden_neurons, len(self.classes))) - 1
+        prev_synapse_0_weight_update = numpy.zeros_like(s0)
+        prev_synapse_1_weight_update = numpy.zeros_like(s1)
 
-        synapse_0_direction_count = np.zeros_like(s0)
-        synapse_1_direction_count = np.zeros_like(s1)
+        synapse_0_direction_count = numpy.zeros_like(s0)
+        synapse_1_direction_count = numpy.zeros_like(s1)
 
         for j in iter(range(self.iterations + 1)):
             # Feed forward through layers 0, 1, and 2
             layer_0 = X
-            layer_1 = sigmoid(np.dot(layer_0, s0))
-            layer_2 = sigmoid(np.dot(layer_1, s1))
+            layer_1 = sigmoid(numpy.dot(layer_0, s0))
+            layer_2 = sigmoid(numpy.dot(layer_1, s1))
 
             # how much did we miss the target value?
             layer_2_error = y - layer_2
 
             if (j % 10000) == 0 and j > 5000:
-
+                print("Itter " + str(j))
                 # if the error is getting worse stop.
-                if np.mean(np.abs(layer_2_error)) < last_mean_error:
-                    last_mean_error = np.mean(np.abs(layer_2_error))
+                if numpy.mean(numpy.abs(layer_2_error)) < last_mean_error:
+                    last_mean_error = numpy.mean(numpy.abs(layer_2_error))
 
             layer_2_delta = layer_2_error * sigmoid_output_to_derivative(layer_2)
             layer_1_error = layer_2_delta.dot(s1.T)
@@ -210,9 +228,9 @@ class Chatbot:
             synapse_0_weight_update = (layer_0.T.dot(layer_1_delta))
 
             if j > 0:
-                synapse_0_direction_count += np.abs(
+                synapse_0_direction_count += numpy.abs(
                     ((synapse_0_weight_update > 0) + 0) - ((prev_synapse_0_weight_update > 0) + 0))
-                synapse_1_direction_count += np.abs(
+                synapse_1_direction_count += numpy.abs(
                     ((synapse_1_weight_update > 0) + 0) - ((prev_synapse_1_weight_update > 0) + 0))
 
             s1 += self.alpha * synapse_1_weight_update
@@ -222,8 +240,8 @@ class Chatbot:
             prev_synapse_1_weight_update = synapse_1_weight_update
 
         # set the global self to the things that are needed for synapse.
-        self.synapse_1 = np.asarray(s1)
-        self.synapse_0 = np.asarray(s0)
+        self.synapse_1 = numpy.asarray(s1)
+        self.synapse_0 = numpy.asarray(s0)
 
     def think(self, sentence):
         # clean up the question into usable data.
@@ -231,8 +249,8 @@ class Chatbot:
         x = bag_of_words(sentence, self.words)
 
         level_0 = x
-        level_1 = sigmoid(np.dot(level_0, self.synapse_0))
-        level_2 = sigmoid(np.dot(level_1, self.synapse_1))
+        level_1 = sigmoid(numpy.dot(level_0, self.synapse_0))
+        level_2 = sigmoid(numpy.dot(level_1, self.synapse_1))
 
         return level_2
 
@@ -243,61 +261,37 @@ class Chatbot:
         return_results = [[self.classes[r[0]], r[1]] for r in results]
         return return_results
 
-    def UserFeedback(self,yesorno):
-        if yesorno.lower() == 'no':
-            # the answer we gave is not correct. Save this question to the black box of no.
-            self.Incorrect_Answers.append(self.QUESTION_ASKED)
-            self.QUESTION_ASKED = ""
+    def user_feedback(self, yesorno, updated_response):
 
-            #### Failed code at trying to retrain NN.
-            # q_fix = detect_project_or_assignment(self.QUESTION_ASKED.lower())
-            # new_data_set = {"answer": "I do not know", "question": q_fix}
-            # words = nltk.word_tokenize(new_data_set["question"])
-            # w = [w for w in words if w not in self.s_words]
-            # w = [lamma.lemmatize(w) for w in w]
-            # w = [stemmer.stem(w) for w in w]
-            # self.words.extend(w)
-            # self.words = list(set(self.words))
-            # self.words = sorted(self.words)
-            # if "I do not know" not in self.classes:
-            #     self.classes.append("I do not know")
-            # # remove all old knowledge from data.
-            # self.training = []
-            # self.output = []
-            # # recreate
-            # self.create_training_data()
-            # # retrain.
-            # X = np.array(self.training)
-            # y = np.array(self.output)
-            # self.train_network(X,y)
+        # if yesorno == True, you answered the prvious question correctly
+        # if yesorno == False, you answered the previous question incorrectly
+        # if updated_response != "", you need to update the previous response in the FAQ
+        # You WILL get feedback after EVERY question
+        if not yesorno:
+            if updated_response:
+                print("Time to add a new response to the question and retrain the network")
+                self.improve_knowledge_base(updated_response)
+            else:
+                print("Wrong answer, didn't give correct one, how do you retrain?")
+
         return
 
-    def InputOutput(self,msg):
+    def improve_knowledge_base(self, expected_answer):
+        updated_question = detect_project_or_assignment(self.QUESTION_ASKED.lower())
+        self.faq_as_list.append(updated_question + "?" + expected_answer + "\n")
+        self.let_the_learning_begin()
 
-        if msg == "Who are you?":
-            return False, "KBAI student, " + self.FAQPathFilename
+
+    def input_output(self,msg):
 
         # save the question off in the memory for learning based on feedback.
         self.QUESTION_ASKED = msg.lower()
 
-        # if the question was asked and is in the blackbox. DO NOT USE IT!
-        if self.QUESTION_ASKED in self.Incorrect_Answers:
-            return False, "I do not know."
-
         r = self.classify(msg)
         # get the best value from R that I can find.
-        if len(r) < 1:
-            response = ''
-        else:
+        response = "I do not know."
+        if len(r) > 0:
             response = max(r, key=lambda item: item[1])[0]
 
-        # If your agent does not know the answer
-        if not response:
-            return False,"I do not know."
-
-        # If your agent knows the answer
-        # True indicates your agent is expecting a "yes" or "no" from the user
-        # in the next call to Chatbot()
-        # Do not change this return statement
-        return True, response + "\nIs the response correct (yes/no)?"
+        return response + '\n'
 

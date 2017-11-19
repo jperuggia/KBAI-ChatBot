@@ -2,16 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5f9adfdc-37c1-469a-a179-5fa09c53ea93" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/KBAI-ChatBot.iml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/OriginalTestFAQ.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Refactor.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/synapses.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/synapses_2.json" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/GHATS.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/GHTS1.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/GHTS2.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Chatbot.py" afterPath="$PROJECT_DIR$/Chatbot.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChatbotTester.py" afterPath="$PROJECT_DIR$/ChatbotTester.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ChatbotAutograder.py" afterPath="$PROJECT_DIR$/ChatbotAutograder.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Fall2017syllabusFAQ.txt" afterPath="$PROJECT_DIR$/Fall2017syllabusFAQ.txt" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log.txt" afterPath="$PROJECT_DIR$/log.txt" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,24 +19,25 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/KBAI_Chat$Unnamed.coverage" NAME="Unnamed Coverage Results" MODIFIED="1509746989463" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/KBAI_Chat$GH_TS3.coverage" NAME="GH TS3 Coverage Results" MODIFIED="1511065010319" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/KBAI_Chat$Unnamed.coverage" NAME="TA Test Script Coverage Results" MODIFIED="1511071593954" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/KBAI_Chat$GH_TS1.coverage" NAME="GH TS1 Coverage Results" MODIFIED="1511062925479" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.685151">
+    <splitter split-orientation="horizontal" split-proportion="0.50702506">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="Chatbot.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Chatbot.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="294">
-                  <caret line="215" column="99" lean-forward="true" selection-start-line="215" selection-start-column="99" selection-end-line="215" selection-end-column="99" />
+                <state relative-caret-position="842">
+                  <caret line="293" column="0" lean-forward="false" selection-start-line="293" selection-start-column="0" selection-end-line="293" selection-end-column="0" />
                   <folding>
                     <element signature="e#332#343#0" expanded="true" />
-                    <element signature="e#685#956#0" expanded="false" />
-                    <element signature="e#998#1212#0" expanded="false" />
-                    <element signature="e#1419#2002#0" expanded="false" />
-                    <element signature="e#8433#9671#0" expanded="false" />
-                    <element signature="e#9713#10703#0" expanded="false" />
+                    <element signature="e#716#972#0" expanded="false" />
+                    <element signature="e#5918#8263#0" expanded="false" />
+                    <element signature="e#8304#8619#0" expanded="false" />
+                    <element signature="e#9002#9616#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -49,21 +47,32 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="Chatbot.py" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/Chatbot.py">
+          <file leaf-file-name="ChatbotAutograder.py" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/ChatbotAutograder.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="35">
-                  <caret line="118" column="33" lean-forward="false" selection-start-line="117" selection-start-column="7" selection-end-line="118" selection-end-column="33" />
-                  <folding>
-                    <element signature="e#332#343#0" expanded="true" />
-                    <element signature="e#685#956#0" expanded="false" />
-                    <element signature="e#998#1212#0" expanded="false" />
-                    <element signature="e#1419#2002#0" expanded="false" />
-                    <element signature="e#5589#7721#0" expanded="false" />
-                    <element signature="e#7762#8071#0" expanded="false" />
-                    <element signature="e#8433#9671#0" expanded="false" />
-                    <element signature="e#9713#10703#0" expanded="false" />
-                  </folding>
+                <state relative-caret-position="300">
+                  <caret line="73" column="30" lean-forward="true" selection-start-line="73" selection-start-column="30" selection-end-line="73" selection-end-column="30" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="GHTS1.json" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/GHTS1.json">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="7240">
+                  <caret line="751" column="1" lean-forward="true" selection-start-line="751" selection-start-column="1" selection-end-line="751" selection-end-column="1" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="log.txt" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/log.txt">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="300">
+                  <caret line="20" column="14" lean-forward="true" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="14" />
+                  <folding />
                 </state>
               </provider>
             </entry>
@@ -71,6 +80,13 @@
         </leaf>
       </split-second>
     </splitter>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -80,6 +96,12 @@
       <find>synapse_1</find>
       <find>synapse_0</find>
       <find>218</find>
+      <find>this course has</find>
+      <find>np</find>
+      <find>Are The projects still based on RPM's</find>
+      <find>sigmoid_output_to_derivative</find>
+      <find>sigmoid</find>
+      <find>layer_1</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -88,6 +110,14 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/Fall2017ExampleTestScript.json.js" />
+        <option value="$PROJECT_DIR$/Fall2017ExampleTestScript.json" />
+        <option value="$PROJECT_DIR$/Fall2017syllabusFAQ.txt" />
+        <option value="$PROJECT_DIR$/ChatbotAutograder.py" />
+        <option value="$PROJECT_DIR$/GHTS1.json" />
+        <option value="$PROJECT_DIR$/GHTS2.json" />
+        <option value="$PROJECT_DIR$/GHATS.json" />
+        <option value="$PROJECT_DIR$/log.txt" />
         <option value="$PROJECT_DIR$/Chatbot.py" />
       </list>
     </option>
@@ -98,10 +128,10 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="y" value="23" />
-    <option name="width" value="1920" />
-    <option name="height" value="1112" />
+    <option name="width" value="2132" />
+    <option name="height" value="1351" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -118,7 +148,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -130,7 +160,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -150,8 +180,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Unnamed">
-    <configuration name="Unnamed" type="PythonConfigurationType" factoryName="Python">
+  <component name="RunManager" selected="Python.TA Test Script">
+    <configuration name="GH TS1" type="PythonConfigurationType" factoryName="Python">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
@@ -165,7 +195,43 @@
       <module name="KBAI_Chat" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="ChatbotAutograder.py" />
-      <option name="PARAMETERS" value="-f Fall2017syllabusFAQ.txt -s Fall2017syllabusFAQ.txt -l log.txt" />
+      <option name="PARAMETERS" value="-f Fall2017syllabusFAQ.txt -s GHTS1.json -l log.txt" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
+    <configuration name="GH TS3" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$PROJECT_DIR$/venv/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="KBAI_Chat" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="ChatbotAutograder.py" />
+      <option name="PARAMETERS" value="-f Fall2017syllabusFAQ.txt -s GHTS2.json -l log.txt" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+    </configuration>
+    <configuration name="TA Test Script" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="$PROJECT_DIR$/venv/bin/python" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="KBAI_Chat" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="ChatbotAutograder.py" />
+      <option name="PARAMETERS" value="-f Fall2017syllabusFAQ.txt -s Fall2017ExampleTestScript.json -l log.txt" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
@@ -187,6 +253,11 @@
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
     </configuration>
+    <list size="3">
+      <item index="0" class="java.lang.String" itemvalue="Python.TA Test Script" />
+      <item index="1" class="java.lang.String" itemvalue="Python.GH TS1" />
+      <item index="2" class="java.lang.String" itemvalue="Python.GH TS3" />
+    </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
@@ -202,20 +273,20 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1920" height="1112" extended-state="0" />
+    <frame x="0" y="23" width="1920" height="1112" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13578275" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.12832801" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22025566" sideWeight="0.31789136" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294347" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33007812" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32940018" sideWeight="0.49361023" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3294347" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39941406" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.22025566" sideWeight="0.68210864" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -234,22 +305,106 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="7" />
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/ChatbotAutograder.py</url>
+          <line>51</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Chatbot.py</url>
+          <line>293</line>
+          <option name="timeStamp" value="48" />
+        </line-breakpoint>
+      </breakpoints>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+      <option name="time" value="49" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/Chatbot.py">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#332#343#0" expanded="true" />
+            <element signature="e#716#972#0" expanded="false" />
+            <element signature="e#5918#8263#0" expanded="false" />
+            <element signature="e#8304#8619#0" expanded="false" />
+            <element signature="e#9002#9616#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1065">
+          <caret line="71" column="10" lean-forward="true" selection-start-line="71" selection-start-column="10" selection-end-line="72" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Chatbot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3030">
+          <caret line="206" column="39" lean-forward="false" selection-start-line="206" selection-start-column="39" selection-end-line="206" selection-end-column="39" />
+          <folding>
+            <element signature="e#332#343#0" expanded="true" />
+            <element signature="e#716#972#0" expanded="false" />
+            <element signature="e#5918#8263#0" expanded="false" />
+            <element signature="e#8304#8619#0" expanded="false" />
+            <element signature="e#9002#9616#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChatbotAutograder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="0" lean-forward="true" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Chatbot.py">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1275">
           <caret line="118" column="33" lean-forward="false" selection-start-line="117" selection-start-column="7" selection-end-line="118" selection-end-column="33" />
           <folding>
             <element signature="e#332#343#0" expanded="true" />
-            <element signature="e#685#956#0" expanded="false" />
-            <element signature="e#998#1212#0" expanded="false" />
-            <element signature="e#1419#2002#0" expanded="false" />
-            <element signature="e#8433#9671#0" expanded="false" />
-            <element signature="e#9713#10703#0" expanded="false" />
+            <element signature="e#716#972#0" expanded="false" />
+            <element signature="e#5918#8263#0" expanded="false" />
+            <element signature="e#8304#8619#0" expanded="false" />
+            <element signature="e#9002#9616#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Chatbot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1275">
+          <caret line="118" column="33" lean-forward="false" selection-start-line="117" selection-start-column="7" selection-end-line="118" selection-end-column="33" />
+          <folding>
+            <element signature="e#332#343#0" expanded="true" />
+            <element signature="e#716#972#0" expanded="false" />
+            <element signature="e#5918#8263#0" expanded="false" />
+            <element signature="e#8304#8619#0" expanded="false" />
+            <element signature="e#9002#9616#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -258,13 +413,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="189">
           <caret line="451" column="0" lean-forward="false" selection-start-line="451" selection-start-column="0" selection-end-line="451" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/log.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="455">
-          <caret line="658" column="48" lean-forward="true" selection-start-line="658" selection-start-column="48" selection-end-line="658" selection-end-column="48" />
         </state>
       </provider>
     </entry>
@@ -282,18 +430,86 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Fall2017syllabusFAQ.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="39" lean-forward="false" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/original/Chatbot.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Peruggia-James/requirements.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GHATS.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="535">
+          <caret line="3301" column="1" lean-forward="false" selection-start-line="3301" selection-start-column="1" selection-end-line="3301" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Fall2017ExampleTestScript.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="36" lean-forward="true" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GHTS2.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136200">
+          <caret line="9080" column="14" lean-forward="true" selection-start-line="9080" selection-start-column="14" selection-end-line="9080" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ChatbotAutograder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="73" column="30" lean-forward="true" selection-start-line="73" selection-start-column="30" selection-end-line="73" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/GHTS1.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7240">
+          <caret line="751" column="1" lean-forward="true" selection-start-line="751" selection-start-column="1" selection-end-line="751" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Chatbot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="215" column="99" lean-forward="true" selection-start-line="215" selection-start-column="99" selection-end-line="215" selection-end-column="99" />
+        <state relative-caret-position="842">
+          <caret line="293" column="0" lean-forward="false" selection-start-line="293" selection-start-column="0" selection-end-line="293" selection-end-column="0" />
           <folding>
             <element signature="e#332#343#0" expanded="true" />
-            <element signature="e#685#956#0" expanded="false" />
-            <element signature="e#998#1212#0" expanded="false" />
-            <element signature="e#1419#2002#0" expanded="false" />
-            <element signature="e#8433#9671#0" expanded="false" />
-            <element signature="e#9713#10703#0" expanded="false" />
+            <element signature="e#716#972#0" expanded="false" />
+            <element signature="e#5918#8263#0" expanded="false" />
+            <element signature="e#8304#8619#0" expanded="false" />
+            <element signature="e#9002#9616#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="14" lean-forward="true" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="14" />
+          <folding />
         </state>
       </provider>
     </entry>
