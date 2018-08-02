@@ -1,17 +1,17 @@
 
 Test Question: What is the assignment 1 due date
-Agent Response: I do not know.
+Agent Response: Week of August 28th
 Test Answer: Week of August 28th
 Test Replace: 
-Action: -0.5
-Wrong: 1
-Correct: 0
+Action: 1.0
+Wrong: 0
+Correct: 1
 
 Test Question: Which week is assignment 2 due
-Agent Response: Week of September 25th
+Agent Response: I do not know.
 Test Answer: Week of September 25th
 Test Replace: 
-Action: 1.0
+Action: -0.5
 Wrong: 1
 Correct: 1
 
@@ -24,57 +24,97 @@ Wrong: 2
 Correct: 1
 
 Test Question: Who is the professor for KBAI
-Agent Response: Professor Goel
+Agent Response: I do not know.
 Test Answer: Professor Goel
 Test Replace: 
-Action: 1.0
-Wrong: 2
-Correct: 2
+Action: -0.5
+Wrong: 3
+Correct: 1
 
 Test Question: Who is doctor Goel
 Agent Response: The professor for this class
 Test Answer: The professor for this class
 Test Replace: 
 Action: 1.0
-Wrong: 2
-Correct: 3
+Wrong: 3
+Correct: 2
 
 Test Question: What are the components of this course
 Agent Response: The course has five components. Video Lessons, Exercises and Readings; Design, Programming and Reflection projects; Assignments and Examinations; Peer Feedback; and Announcements, Question Answering and Discussions.
 Test Answer: The course has five components. Video Lessons, Exercises and Readings; Design, Programming and Reflection projects; Assignments and Examinations; Peer Feedback; and Announcements, Question Answering and Discussions.
 Test Replace: 
 Action: 1.0
-Wrong: 2
-Correct: 4
+Wrong: 3
+Correct: 3
 
 Test Question: How many videos do I need to watch
 Agent Response: I do not know.
 Test Answer: This course has 26 videos with about 18 hours of instruction.
 Test Replace: 
 Action: -0.5
-Wrong: 3
-Correct: 4
+Wrong: 4
+Correct: 3
 
 Test Question: How many hours of instruction
 Agent Response: This course has 26 videos with about 18 hours of instruction.
 Test Answer: This course has 26 videos with about 18 hours of instruction.
 Test Replace: 
 Action: 1.0
-Wrong: 3
-Correct: 5
+Wrong: 4
+Correct: 4
 
 Test Question: Are there exercises
 Agent Response: I do not know.
 Test Answer: The videos have ~150 exercises and ~100 “tutors” embedded in them.
 Test Replace: 
 Action: -0.5
-Wrong: 4
-Correct: 5
+Wrong: 5
+Correct: 4
 
 Test Question: Is any release of Python 3.6 ok
 Agent Response: I do not know.
 Test Answer: I do not know.
 Test Replace: yes
 Action: 1.0
-Wrong: 4
+Wrong: 5
+Correct: 5
+
+Test Question: Is wordnet allowed?
+Agent Response: I do not know.
+Test Answer: I do not know.
+Test Replace: yes
+Action: 1.0
+Wrong: 5
 Correct: 6
+
+Test Question: Is numpy allowed
+Agent Response: I do not know.
+Test Answer: I do not know.
+Test Replace: yes
+Action: 1.0
+Wrong: 5
+Correct: 7
+
+Test Question: Could a T.A confirm if the usage of classifiers is allowed
+Agent Response: I do not know.
+Test Answer: I do not know.
+Test Replace: yes, but you need to implement the code yourself.
+Action: 1.0
+Wrong: 5
+Correct: 8
+
+Test Question: Can we use the nltk.corpus.stopwords corpus
+Agent Response: I do not know.
+Test Answer: I do not know.
+Test Replace: Yes, you can use anything in download all.
+Action: 1.0
+Wrong: 5
+Correct: 9
+
+Test Question: Can we use the nltk.corpus.stopwords corpus
+Agent Response: Yes, you can use anything in download all.
+Test Answer: Yes, you can use anything in download all.
+Test Replace: 
+Action: 1.0
+Wrong: 5
+Correct: 10

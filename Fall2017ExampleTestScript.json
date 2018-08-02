@@ -90,58 +90,8 @@
 },
 {
 "questions": [
-"Is it allowed to use similarity algorithms found open source if sited appropriately"
-],
-"response": "I do not know.",
-"replace": "As long as you implement the algorithm yourself."
-},
-{
-"questions": [
-"Are the projects still based on RPM's"
-],
-"response": "I do not know.",
-"replace": "no, the projects are now based on chatbots."
-},
-{
-"questions": [
-"Is any release of Python 3.6 ok"
-],
-"response": "yes"
-},
-{
-"questions": [
-"Is wordnet allowed?"
-],
-"response": "yes"
-},
-{
-"questions": [
-"Is numpy allowed"
-],
-"response": "yes"
-},
-{
-"questions": [
-"Could a T.A confirm if the usage of classifiers is allowed"
-],
-"response": "yes, but you need to implement the code yourself."
-},
-{
-"questions": [
 "Can we use the nltk.corpus.stopwords corpus"
 ],
 "response": "Yes, you can use anything in download all."
-},
-{
-"questions": [
-"Is it allowed to use similarity algorithms found open source if sited appropriately"
-],
-"response": "As long as you implement the algorithm yourself."
-},
-{
-"questions": [
-"Are the projects still based on RPM's"
-],
-"response": "no, the projects are now based on chatbots."
 }
 ]

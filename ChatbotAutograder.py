@@ -60,7 +60,7 @@ def ChatbotAutograder(script_filename, faq_filename, log_filename):
 
         if response == qa_dict["response"]:
             score += 1.0
-            correct +=1
+            correct += 1
             action = "1.0"
             chatbot.user_feedback(True, replace)
         else:
